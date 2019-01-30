@@ -1,10 +1,13 @@
 <?php
 	// attributes to get are ip / name / code
-	error_reporting(E_ERROR | E_PARSE);
-	$servername = "";
-	$username = "";
+	//error_reporting(E_ERROR | E_PARSE);
+	$servername = "localhost";
+	$username = "root";
 	$password = "";
-	$dbname = "";
+	$dbname = "ip_grabber";
+	$dt = new DateTime('- 1 hour'); // To make it match UK
+	$cur_time = $dt->format('H:i:s d/m/Y');
+	echo $cur_time;
 	
 	if(isset($_GET['code']) && isset($_GET['name']) && isset($_SERVER['REMOTE_ADDR'])){
 		try{
@@ -35,7 +38,7 @@
 					if ($conn2->connect_error) {
 						die("");
 					}
-					$sql = "UPDATE ip_addresses SET ip = '" . $ip_address . "', name = '" . $name . "' WHERE code = '" . $code . "'";
+					$sql = "UPDATE ip_addresses SET ip = '" . $ip_address . "', name = '" . $name . "', last_updated = '" . $cur_time . "' WHERE code = '" . $code . "'";
 					
 					if ($conn2->query($sql) === TRUE) {
 						echo "";
