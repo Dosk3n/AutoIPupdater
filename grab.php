@@ -1,10 +1,10 @@
 <?php
 	// attributes to get are ip / name / code
 	//error_reporting(E_ERROR | E_PARSE);
-	$servername = "localhost";
-	$username = "root";
+	$servername = "";
+	$username = "";
 	$password = "";
-	$dbname = "ip_grabber";
+	$dbname = "";
 	$dt = new DateTime('- 1 hour'); // To make it match UK
 	$cur_time = $dt->format('H:i:s d/m/Y');
 	echo $cur_time;
