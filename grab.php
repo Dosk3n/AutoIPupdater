@@ -12,13 +12,15 @@
 	if(isset($_GET['code']) && isset($_GET['name']) && isset($_SERVER['REMOTE_ADDR'])){
 		try{
 			$ip_address = $_SERVER['REMOTE_ADDR'];
-			$name = $_GET['name'];
-			$code = $_GET['code'];
 			
 			$conn = new mysqli($servername, $username, $password, $dbname);
 			if ($conn->connect_error) {
 				die("");
 			}
+			
+			$name = mysqli_real_escape_string($conn, $_GET['name']);
+			$code = mysqli_real_escape_string($conn, $_GET['code']);
+			
 			
 			$sql = "SELECT * FROM ip_addresses WHERE code = '" . $code . "'";
 			$result = $conn->query($sql);
@@ -38,6 +40,10 @@
 					if ($conn2->connect_error) {
 						die("");
 					}
+					
+					// SECURE OUR INPUT
+					
+					
 					$sql = "UPDATE ip_addresses SET ip = '" . $ip_address . "', name = '" . $name . "', last_updated = '" . $cur_time . "' WHERE code = '" . $code . "'";
 					
 					if ($conn2->query($sql) === TRUE) {
